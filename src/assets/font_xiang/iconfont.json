@@ -1,0 +1,23 @@
+{
+  "id": "2856004",
+  "name": "yinxiangyun",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "16205413",
+      "name": "象豆",
+      "font_class": "xiangdou",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "21459304",
+      "name": "大象",
+      "font_class": "xiang",
+      "unicode": "e6e0",
+      "unicode_decimal": 59104
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+webpackJsonp([2],{KeBu:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div")},staticRenderFns:[]},u=n("VU/8")({created:function(){this.$router.push({path:"/note"})}},r,!1,null,null,null);t.default=u.exports}});
+//# sourceMappingURL=2.fb0469e46233be1f37f0.js.map
