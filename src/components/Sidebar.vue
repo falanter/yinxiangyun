@@ -25,6 +25,7 @@
         components:{
             avatar
         },
+        inject:['reload'],
         methods:{
             ...mapActions([
                 'addNote',
@@ -35,7 +36,7 @@
             'setCurNote',
             'setCurBook'
         ]),
-        onLogout(){
+        onLogout(){    
             Auth.logout()
             .then(
                 res=>{
@@ -43,6 +44,7 @@
                     Bus.$emit('out',res)
                     this.$store.login=false
                     this.$router.push({path:'/'})
+                    this.reload()
                 }
             )
         },

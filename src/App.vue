@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <Sidebar id="sidebar"></Sidebar>
-    <router-view/>
+    <router-view v-if="isRouterAlive"/>
   </div>
 </template>
 
@@ -10,8 +10,26 @@
 import Sidebar from '@/components/Sidebar'
 export default {
   name: 'App',
+  data(){
+    return{
+      isRouterAlive:true
+    }
+  },
   components:{
     Sidebar
+  },
+  methods:{
+    reload(){
+      this.isRouterAlive=false
+      this.$nextTick(function(){
+        this.isRouterAlive=true
+      })
+    },
+    provide(){
+      return{
+        reload:this.reload
+      }
+    }
   }
 }
 </script>
