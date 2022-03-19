@@ -37,7 +37,10 @@ import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      bookListClass:document.querySelector("#note-detail #booklist").classList,
+      trashClass:document.querySelector("#trash").classList
+    };
   },
   methods: {
     ...mapMutations(["setCurBook", "setCurNote"]),
@@ -62,9 +65,9 @@ export default {
     },
     choseBook(notebookId) {
       this.$store.state.noteIndex=true
-      document.querySelector("#note-detail #booklist").classList.remove("show");
-      document.querySelector("#trash").classList.remove("show");
-      setTimeout(() =>document.querySelector("#note-detail #booklist").classList.remove("appear"),250);
+      this.bookListClass.remove("show");
+      this.trashClass.remove("show");
+      setTimeout(() =>this.bookListClass.remove("appear"),250);
       this.$store.bookappear = !this.$store.bookappear;
       // Bus.$emit('changeBookList', notebookId)
       this.setCurBook({ curBookId: notebookId });
