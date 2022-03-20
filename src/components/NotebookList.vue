@@ -39,7 +39,8 @@ export default {
   data() {
     return {
       bookListClass:document.querySelector("#note-detail #booklist").classList,
-      trashClass:document.querySelector("#trash").classList
+      trashClass:document.querySelector("#trash").classList,
+      noteClass:document.querySelector("#sidebar .note").classList
     };
   },
   methods: {
@@ -72,17 +73,26 @@ export default {
     removeBookListClass_appear(){
       setTimeout(() =>this.bookListClass.remove("appear"),250);
     },
+    removeSidebarIcon_show(){
+      document.querySelectorAll("#sidebar .icons i").forEach(($i) => $i.classList.remove("show"));
+    },
+    addSidebarNote_show(){
+      noteClass.add("show");
+    },
+    BookListRemove(trash_show){
+      removeBookListClass_show()
+      trash_show ? this.trashClass.remove("show"):null
+      removeBookListClass_appear()
+    },
     choseBook(notebookId) {
       this.$store.state.noteIndex=true
-      removeBookListClass_show()
-      this.trashClass.remove("show");
-      removeBookListClass_appear()
+      BookListRemove('trash_show')
       bookappearChange()
       // Bus.$emit('changeBookList', notebookId)
       this.setCurBook({ curBookId: notebookId });
       this.getNotes({ notebookId: notebookId });
-      document.querySelectorAll("#sidebar .icons i").forEach(($i) => $i.classList.remove("show"));
-      document.querySelector("#sidebar .note").classList.add("show");
+      removeSidebarIcon_show()
+      addSidebarNote_show()
       console.log("book");
     },
     getTrash(){
@@ -99,8 +109,8 @@ export default {
       removeBookListClass_appear()
       bookappearChange()
       if(this.$store.state.noteIndex){
-        document.querySelectorAll("#sidebar .icons i").forEach(($i) => $i.classList.remove("show"));
-        document.querySelector("#sidebar .note").classList.add("show");
+        removeSidebarIcon_show()
+        addSidebarNote_show()
       }
       console.log("back");
     },
