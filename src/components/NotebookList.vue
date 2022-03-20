@@ -38,9 +38,9 @@ import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      bookListClass:document.querySelector("#note-detail #booklist").classList,
-      trashClass:document.querySelector("#trash").classList,
-      noteClass:document.querySelector("#sidebar .note").classList
+      bookListClass: document.querySelector("#note-detail #booklist").classList,
+      trashClass: document.querySelector("#trash").classList,
+      noteClass: document.querySelector("#sidebar .note").classList,
     };
   },
   methods: {
@@ -52,7 +52,7 @@ export default {
       "deleteNotebook",
       "checkLogin",
       "getNotes",
-      "deleteNotebook"
+      "deleteNotebook",
     ]),
     createBook() {
       this.$prompt("给笔记本起个名称", "创建笔记本", {
@@ -64,67 +64,68 @@ export default {
         this.addNotebook({ title: value });
       });
     },
-    bookappearChange(){
+    bookappearChange() {
       this.$store.bookappear = !this.$store.bookappear;
     },
-    removeBookListClass_show(){
+    removeBookListClass_show() {
       this.bookListClass.remove("show");
     },
-    removeBookListClass_appear(){
-      setTimeout(() =>this.bookListClass.remove("appear"),250);
+    removeBookListClass_appear() {
+      setTimeout(() => this.bookListClass.remove("appear"), 250);
     },
-    removeSidebarIcon_show(){
-      document.querySelectorAll("#sidebar .icons i").forEach(($i) => $i.classList.remove("show"));
+    removeSidebarIcon_show() {
+      document
+        .querySelectorAll("#sidebar .icons i")
+        .forEach(($i) => $i.classList.remove("show"));
     },
-    addSidebarNote_show(){
+    addSidebarNote_show() {
       noteClass.add("show");
     },
-    BookListRemove(trash_show){
-      removeBookListClass_show()
-      trash_show ? this.trashClass.remove("show"):null
-      removeBookListClass_appear()
+    BookListRemove(trash_show) {
+      removeBookListClass_show();
+      trash_show ? this.trashClass.remove("show") : null;
+      removeBookListClass_appear();
     },
     choseBook(notebookId) {
-      this.$store.state.noteIndex=true
-      BookListRemove('trash_show')
-      bookappearChange()
-      // Bus.$emit('changeBookList', notebookId)
+      this.$store.state.noteIndex = true;
+      BookListRemove("trash_show");
+      bookappearChange();
       this.setCurBook({ curBookId: notebookId });
       this.getNotes({ notebookId: notebookId });
-      removeSidebarIcon_show()
-      addSidebarNote_show()
+      removeSidebarIcon_show();
+      addSidebarNote_show();
       console.log("book");
     },
-    getTrash(){
-      console.log('trash')
+    getTrash() {
+      console.log("trash");
       this.trashClass.add("show");
-      removeBookListClass_show()
-      removeBookListClass_appear()
-      bookappearChange()
-      this.$store.state.noteIndex=false
-      Bus.$emit('test')
+      removeBookListClass_show();
+      removeBookListClass_appear();
+      bookappearChange();
+      this.$store.state.noteIndex = false;
+      Bus.$emit("test");
     },
     clickBack() {
-      removeBookListClass_show()
-      removeBookListClass_appear()
-      bookappearChange()
-      if(this.$store.state.noteIndex){
-        removeSidebarIcon_show()
-        addSidebarNote_show()
+      removeBookListClass_show();
+      removeBookListClass_appear();
+      bookappearChange();
+      if (this.$store.state.noteIndex) {
+        removeSidebarIcon_show();
+        addSidebarNote_show();
       }
       console.log("back");
     },
-    deleteBook(notebookId){
-      this.deleteNotebook({notebookId:notebookId}).then(()=>{
-        this.getNotebooks()
-        .then(()=>{
-          console.log('2,create=>curbook.id')
-          console.log(this.curBook.id)
-          if(this.curBook.id) return this.getNotes({ notebookId: this.curBook.id})
-          this.$router.go(0)
-        })
-      })
-    }
+    deleteBook(notebookId) {
+      this.deleteNotebook({ notebookId: notebookId }).then(() => {
+        this.getNotebooks().then(() => {
+          console.log("2,create=>curbook.id");
+          console.log(this.curBook.id);
+          if (this.curBook.id)
+            return this.getNotes({ notebookId: this.curBook.id });
+          this.$router.go(0);
+        });
+      });
+    },
   },
   created() {
     this.getNotebooks();
@@ -136,10 +137,6 @@ export default {
 };
 </script>
 <style scoped lang="less">
-// @import url(../assets/css/notebook-list.less);
-// .el-button--primary{
-//   background: greenyellow;
-// }
 #booklist {
   position: absolute;
   top: 0;
@@ -154,10 +151,9 @@ export default {
   .booklist-con {
     display: flex;
     height: 100%;
-    
+
     .booklist-cover {
       flex: 1;
-      // background-color: yellowgreen;
       opacity: 0;
     }
     .booklist-list {
@@ -169,7 +165,7 @@ export default {
       display: block;
       opacity: 1;
       padding-top: 20px;
-      overflow-y:auto;
+      overflow-y: auto;
       .booklist-top {
         margin: 0 20px 20px 20px;
         display: flex;
@@ -186,14 +182,11 @@ export default {
       }
       .notebooks {
         border-top: 1px solid #eee;
-        // padding: 20px;
-        .bookTitle-box{
-          // border: 1px solid #2dbe60;
-          // margin: 20px;
+        .bookTitle-box {
           padding: 0 10px;
           transition: all 150ms;
 
-          .bookTitle{
+          .bookTitle {
             padding: 20px 10px;
             border-bottom: 1px solid #eee;
             display: flex;
@@ -201,28 +194,27 @@ export default {
             // .title{
             //   color: #2dbe60;
             // }
-            .icons-box{
+            .icons-box {
               color: #fff;
               display: none;
               font-size: large;
-              .icon-hover{
+              .icon-hover {
                 display: none;
               }
             }
           }
           &:hover {
-            // box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
             background-color: #2dbe60;
             color: #fff;
             .bookTitle {
               border-bottom: 1px solid #2dbe60;
-              .icons-box{
+              .icons-box {
                 display: block;
-                &:hover{
-                  .icon{
+                &:hover {
+                  .icon {
                     display: none;
                   }
-                  .icon-hover{
+                  .icon-hover {
                     display: inline;
                   }
                 }
@@ -230,19 +222,19 @@ export default {
             }
           }
         }
-        .trash-box{
+        .trash-box {
           padding: 0 10px;
           transition: all 150ms;
           cursor: pointer;
           color: #999;
-          .trash{
+          .trash {
             padding: 20px 10px;
           }
-          &:hover{
-            background-color:#2dbe60 ;
+          &:hover {
+            background-color: #2dbe60;
             color: #fff;
           }
-        } 
+        }
       }
     }
   }
@@ -250,7 +242,6 @@ export default {
     display: block;
   }
   &.show {
-    // left: 10px;
     opacity: 1;
     .booklist-list {
       transform: translateX(0);
