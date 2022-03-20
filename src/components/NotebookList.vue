@@ -63,12 +63,21 @@ export default {
         this.addNotebook({ title: value });
       });
     },
+    bookappearChange(){
+      this.$store.bookappear = !this.$store.bookappear;
+    },
+    removeBookListClass_show(){
+      this.bookListClass.remove("show");
+    },
+    removeBookListClass_appear(){
+      setTimeout(() =>this.bookListClass.remove("appear"),250);
+    },
     choseBook(notebookId) {
       this.$store.state.noteIndex=true
-      this.bookListClass.remove("show");
+      removeBookListClass_show()
       this.trashClass.remove("show");
-      setTimeout(() =>this.bookListClass.remove("appear"),250);
-      this.$store.bookappear = !this.$store.bookappear;
+      removeBookListClass_appear()
+      bookappearChange()
       // Bus.$emit('changeBookList', notebookId)
       this.setCurBook({ curBookId: notebookId });
       this.getNotes({ notebookId: notebookId });
@@ -78,17 +87,17 @@ export default {
     },
     getTrash(){
       console.log('trash')
-      document.querySelector("#trash").classList.add("show");
-      document.querySelector("#note-detail #booklist").classList.remove("show");
-      setTimeout(() =>document.querySelector("#note-detail #booklist").classList.remove("appear"),250);
-      this.$store.bookappear = !this.$store.bookappear;
+      this.trashClass.add("show");
+      removeBookListClass_show()
+      removeBookListClass_appear()
+      bookappearChange()
       this.$store.state.noteIndex=false
       Bus.$emit('test')
     },
     clickBack() {
-      document.querySelector("#note-detail #booklist").classList.remove("show");
-      setTimeout(() =>document.querySelector("#note-detail #booklist").classList.remove("appear"),250);
-      this.$store.bookappear = !this.$store.bookappear;
+      removeBookListClass_show()
+      removeBookListClass_appear()
+      bookappearChange()
       if(this.$store.state.noteIndex){
         document.querySelectorAll("#sidebar .icons i").forEach(($i) => $i.classList.remove("show"));
         document.querySelector("#sidebar .note").classList.add("show");
